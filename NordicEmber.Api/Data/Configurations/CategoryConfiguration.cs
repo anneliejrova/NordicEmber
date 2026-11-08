@@ -15,9 +15,9 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 
         builder.HasIndex(category => category.UrlSlug).IsUnique();
 
-        builder.HasOne(category => category.CategoryGroup)
-            .WithMany(group => group.Categories)
-            .HasForeignKey(category => category.CategoryGroupId)
+        builder.HasOne(category => category.Facet)
+            .WithMany(facet => facet.Categories)
+            .HasForeignKey(category => category.FacetId)
             .OnDelete(DeleteBehavior.SetNull);
     }
 }

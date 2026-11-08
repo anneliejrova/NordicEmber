@@ -11,7 +11,7 @@ namespace NordicEmber.Api.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CategoryGroups",
+                name: "Facets",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -25,7 +25,7 @@ namespace NordicEmber.Api.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoryGroups", x => x.Id);
+                    table.PrimaryKey("PK_Facets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,15 +55,15 @@ namespace NordicEmber.Api.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     Image = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     UrlSlug = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CategoryGroupId = table.Column<int>(type: "int", nullable: true)
+                    FacetId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Categories_CategoryGroups_CategoryGroupId",
-                        column: x => x.CategoryGroupId,
-                        principalTable: "CategoryGroups",
+                        name: "FK_Categories_Facets_FacetId",
+                        column: x => x.FacetId,
+                        principalTable: "Facets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                 });
@@ -93,9 +93,9 @@ namespace NordicEmber.Api.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_CategoryGroupId",
+                name: "IX_Categories_FacetId",
                 table: "Categories",
-                column: "CategoryGroupId");
+                column: "FacetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_UrlSlug",
@@ -104,15 +104,15 @@ namespace NordicEmber.Api.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryGroups_UrlSlug",
-                table: "CategoryGroups",
-                column: "UrlSlug",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CategoryProduct_ProductsId",
                 table: "CategoryProduct",
                 column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Facets_UrlSlug",
+                table: "Facets",
+                column: "UrlSlug",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_UrlSlug",
@@ -134,7 +134,7 @@ namespace NordicEmber.Api.Data.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "CategoryGroups");
+                name: "Facets");
         }
     }
 }

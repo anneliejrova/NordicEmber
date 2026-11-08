@@ -1,6 +1,6 @@
 ﻿namespace NordicEmber.Api.Data.Entities;
 
-public class CategoryGroup : IHasSlug
+public class Facet : IHasSlug
 {
     public const int NameMaxLength = 100;
     public const int DescriptionMaxLength = 1000;

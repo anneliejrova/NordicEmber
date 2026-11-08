@@ -11,7 +11,7 @@ using NordicEmber.Api.Data;
 namespace NordicEmber.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261105231936_InitialCreate")]
+    [Migration("20261108224224_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -47,12 +47,12 @@ namespace NordicEmber.Api.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CategoryGroupId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int?>("FacetId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Image")
                         .HasMaxLength(255)
@@ -70,7 +70,7 @@ namespace NordicEmber.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryGroupId");
+                    b.HasIndex("FacetId");
 
                     b.HasIndex("UrlSlug")
                         .IsUnique();
@@ -78,7 +78,7 @@ namespace NordicEmber.Api.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("NordicEmber.Api.Data.Entities.CategoryGroup", b =>
+            modelBuilder.Entity("NordicEmber.Api.Data.Entities.Facet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -115,7 +115,7 @@ namespace NordicEmber.Api.Data.Migrations
                     b.HasIndex("UrlSlug")
                         .IsUnique();
 
-                    b.ToTable("CategoryGroups");
+                    b.ToTable("Facets");
                 });
 
             modelBuilder.Entity("NordicEmber.Api.Data.Entities.Product", b =>
@@ -173,15 +173,15 @@ namespace NordicEmber.Api.Data.Migrations
 
             modelBuilder.Entity("NordicEmber.Api.Data.Entities.Category", b =>
                 {
-                    b.HasOne("NordicEmber.Api.Data.Entities.CategoryGroup", "CategoryGroup")
+                    b.HasOne("NordicEmber.Api.Data.Entities.Facet", "Facet")
                         .WithMany("Categories")
-                        .HasForeignKey("CategoryGroupId")
+                        .HasForeignKey("FacetId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.Navigation("CategoryGroup");
+                    b.Navigation("Facet");
                 });
 
-            modelBuilder.Entity("NordicEmber.Api.Data.Entities.CategoryGroup", b =>
+            modelBuilder.Entity("NordicEmber.Api.Data.Entities.Facet", b =>
                 {
                     b.Navigation("Categories");
                 });

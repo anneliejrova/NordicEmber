@@ -7,7 +7,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Category> Categories => Set<Category>();
-    public DbSet<CategoryGroup> CategoryGroups => Set<CategoryGroup>();
+    public DbSet<Facet> Facets => Set<Facet>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
