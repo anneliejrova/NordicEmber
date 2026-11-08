@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NordicEmber.Api.Common;
 using NordicEmber.Api.Data;
 using Scalar.AspNetCore;
 
@@ -18,6 +19,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
+
+    app.MapGet("/dev/slug", (string text) => SlugGenerator.Generate(text));
 }
 
 app.UseHttpsRedirection();
