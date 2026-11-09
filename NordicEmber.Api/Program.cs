@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using NordicEmber.Api.Common;
 using NordicEmber.Api.Data;
+using NordicEmber.Api.Features.Categories;
 using NordicEmber.Api.Features.Products;
 using Scalar.AspNetCore;
 
@@ -22,18 +22,20 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<ProductService>();
 
+builder.Services.AddScoped<CategoryService>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
-
-    app.MapGet("/dev/slug", (string text) => SlugGenerator.Generate(text));
 }
 
 app.UseHttpsRedirection();
 
 app.MapProductEndpoints();
+
+app.MapCategoryEndpoints();
 
 app.Run();
