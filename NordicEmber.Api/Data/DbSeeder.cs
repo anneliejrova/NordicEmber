@@ -6,7 +6,7 @@ namespace NordicEmber.Api.Data;
 
 public static class DbSeeder
 {
-    // Anropas av Update-Database i Package Manager Console
+    // Called by Update-Database in Package Manager Console
     public static void Seed(DbContext context)
     {
         if (context.Set<Facet>().Any())
@@ -18,7 +18,7 @@ public static class DbSeeder
         context.SaveChanges();
     }
 
-    // Anropas när appen migrerar asynkront
+    // Called when the app migrates asynchronously
     public static async Task SeedAsync(DbContext context, CancellationToken cancellationToken)
     {
         if (await context.Set<Facet>().AnyAsync(cancellationToken))
@@ -32,7 +32,7 @@ public static class DbSeeder
 
     private static List<Facet> BuildSeedData()
     {
-        // 1. Produkter först, eftersom kategorierna ska peka på dem
+        // 1. Products first, since categories point to them
         var yirgacheffe = CreateProduct("Etiopien Yirgacheffe", 149, "Blommig och citrusfrisk med toner av jasmin.");
         var kenya = CreateProduct("Kenya AA", 159, "Livlig syra med smak av svarta vinbär.");
         var huila = CreateProduct("Colombia Huila", 129, "Balanserad med karamell och röda äpplen.");
@@ -44,7 +44,7 @@ public static class DbSeeder
         var decafColombia = CreateProduct("Koffeinfri Colombia", 139, "All smak, inget koffein.");
         var coldBrewCoarse = CreateProduct("Cold Brew Grovmalet", 129, "Grovmalet för kallbryggning.");
 
-        // 2. Facetter med sina kategorier, som pekar på produkterna
+        // 2. Facets with categories, pointing to products
         return
         [
             CreateFacet("Rostgrad", 1, allowsMultiple: false,
@@ -81,7 +81,7 @@ public static class DbSeeder
         ];
     }
 
-    // Hjälpmetoder: namnet skrivs en gång, sluggen skapas från det
+    // Helper methods: Name is written once and slug is generated from it
     private static Product CreateProduct(string name, decimal price, string description) => new()
     {
         Name = name,
